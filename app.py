@@ -3,6 +3,7 @@ from flask import Flask, request, render_template_string
 from datetime import datetime
 from pathlib import Path
 import json
+import re
 
 app = Flask(__name__)
 
@@ -126,6 +127,20 @@ def evaluate_action(action):
 
     text = action.strip().lower()
 
+    # Allow only narrowly defined educational questions about a term.
+    # This does not allow instructions that ask how to perform a destructive action.
+    educational_patterns = (
+        r"^explain what (drop table|drop database|truncate table) means[?.!]*$",
+        r"^what does (drop table|drop database|truncate table) mean[?.!]*$",
+        r"^define (drop table|drop database|truncate table)[?.!]*$",
+    )
+
+    if any(re.fullmatch(pattern, text) for pattern in educational_patterns):
+        return (
+            "SAFE TO SIMULATE",
+            "Educational question detected; no action is executed.",
+        )
+
     # Check potentially destructive actions first.
     if any(word in text for word in UNSAFE_KEYWORDS):
         return (
@@ -144,7 +159,6 @@ def evaluate_action(action):
         "SAFE TO SIMULATE",
         "No configured risk pattern was detected.",
     )
-
 
 HTML = r"""
 <!DOCTYPE html>

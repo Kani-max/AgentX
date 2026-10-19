@@ -56,7 +56,6 @@ class TestAgentXSafety(unittest.TestCase):
     def test_whitespace_input(self):
         self.check_result("   ", "NEEDS CLARIFICATION")
 
-	
     def test_additional_unsafe_actions(self):
         """Detect additional destructive action patterns."""
         actions = [
@@ -68,12 +67,9 @@ class TestAgentXSafety(unittest.TestCase):
             "remove all files",
             "format disk",
         ]
-
         for action in actions:
             with self.subTest(action=action):
-                result, _ = evaluate_action(action)
-                self.assertEqual(result, "UNSAFE")
-
+                self.check_result(action, "UNSAFE")
 
     def test_ordinary_actions_remain_safe_to_simulate(self):
         """Ordinary actions should not match destructive rules."""
@@ -83,12 +79,19 @@ class TestAgentXSafety(unittest.TestCase):
             "view order history",
             "search for a product",
         ]
-
         for action in actions:
             with self.subTest(action=action):
-                result, _ = evaluate_action(action)
-                self.assertEqual(result, "SAFE TO SIMULATE")
+                self.check_result(action, "SAFE TO SIMULATE")
 
+    def test_educational_mentions_of_unsafe_terms(self):
+        """Educational questions should not automatically be treated as destructive."""
+        result, _ = evaluate_action("Explain what DROP TABLE means")
+        self.assertEqual(result, "SAFE TO SIMULATE")
+
+    def test_destructive_request_inside_explanation(self):
+        """Destructive requests remain flagged even when phrased as explanations."""
+        result, _ = evaluate_action("Explain how to delete all files")
+        self.assertEqual(result, "UNSAFE")
 
 
 if __name__ == "__main__":
