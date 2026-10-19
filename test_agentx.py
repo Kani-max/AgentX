@@ -56,6 +56,40 @@ class TestAgentXSafety(unittest.TestCase):
     def test_whitespace_input(self):
         self.check_result("   ", "NEEDS CLARIFICATION")
 
+	
+    def test_additional_unsafe_actions(self):
+        """Detect additional destructive action patterns."""
+        actions = [
+            "truncate table orders",
+            "drop database production",
+            "delete from users",
+            "delete from products",
+            "terminate instance i-123456",
+            "remove all files",
+            "format disk",
+        ]
+
+        for action in actions:
+            with self.subTest(action=action):
+                result, _ = evaluate_action(action)
+                self.assertEqual(result, "UNSAFE")
+
+
+    def test_ordinary_actions_remain_safe_to_simulate(self):
+        """Ordinary actions should not match destructive rules."""
+        actions = [
+            "show product list",
+            "list files in my documents",
+            "view order history",
+            "search for a product",
+        ]
+
+        for action in actions:
+            with self.subTest(action=action):
+                result, _ = evaluate_action(action)
+                self.assertEqual(result, "SAFE TO SIMULATE")
+
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

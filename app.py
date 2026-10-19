@@ -10,12 +10,20 @@ app = Flask(__name__)
 HISTORY_FILE = Path(__file__).with_name("decision_history.json")
 MAX_HISTORY = 50
 
+
 UNSAFE_KEYWORDS = [
     "delete all",
     "rm -rf",
     "drop table",
+    "drop database",
+    "truncate table",
+    "delete from users",
+    "delete from products",
     "destroy everything",
     "terminate ec2",
+    "terminate instance",
+    "remove all files",
+    "format disk",
 ]
 
 CLARIFICATION_KEYWORDS = [
