@@ -50,6 +50,12 @@ class TestAgentXSafety(unittest.TestCase):
     def test_unsafe_rule_has_priority(self):
         self.check_result("delete all passwords", "UNSAFE")
 
+    def test_empty_input(self):
+        self.check_result("", "NEEDS CLARIFICATION")
+
+    def test_whitespace_input(self):
+        self.check_result("   ", "NEEDS CLARIFICATION")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
