@@ -2,7 +2,7 @@
 
 
 
-A lightweight, rule-based safety evaluation dashboard that classifies proposed actions by risk indicators and maintains a local history of evaluation results.
+A rule-based safety evaluation dashboard that classifies proposed actions by risk indicators and maintains a local history of evaluation results.
 
 
 
