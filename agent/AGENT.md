@@ -1,0 +1,13 @@
+﻿# Use case
+- **Project name:** AgentX - Safe Tool-Calling Agent
+- **Pitch:** AgentX uses Strands Decider 2B to inspect potentially risky tool calls before execution, allowing safe actions, asking for clarification or confirmation when needed, and blocking unsafe actions.
+- **Who it is for:** Developers building AI agents with tools that can change data, access resources, or perform consequential actions.
+- **Features:**
+  - Demonstrates a tool-calling AI agent with simulated tools and a local safety decision layer.
+  - Checks whether proposed tool calls are justified by the conversation and whether required details are missing.
+  - Guides the agent to ask the user when clarification is needed.
+  - Denies unsafe or unauthorized actions according to explicit safety rules.
+  - Records decisions, verdicts, confidence values, and latency for evaluation and demonstration.
+- **The decision handed to Strands Decider 2B:** Before a potentially risky tool call, should the agent proceed, ask for clarification or confirmation, or deny the action? (`#guardrails`)
+- **Why a decision model:** Tool calls can have consequences beyond generating text. A separate decision step gives the agent a structured way to inspect proposed actions before they run and measure those decisions during evaluation.
+- **Development approach:** Use the configured hosted model for local development. AWS deployment and Bedrock integration are later steps requiring separate setup and approval.

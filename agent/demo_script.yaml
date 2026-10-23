@@ -1,0 +1,20 @@
+title: "AgentX: Safe Tool-Calling Agent"
+pitch: "AgentX checks consequential tool calls and chooses to proceed, ask first, or deny before they execute."
+features:
+  - "inspect simulated actions and their risk"
+  - "check consequential tool calls with Strands Decider 2B"
+  - "ask for missing details or confirmation instead of guessing"
+  - "record safety decisions without executing real-world actions"
+eager: true
+intro: "AgentX demonstrates a safety layer for tool-using AI agents. The tools in this local demo are simulated, and Strands Decider 2B evaluates proposed consequential calls before they proceed."
+intro_normal: "AgentX is a safety-focused tool-calling agent. Its simulated tools make it possible to demonstrate the decision layer without changing real systems."
+turns:
+  - say: "What demo actions can AgentX inspect?"
+    narrate: "First, AgentX can explain the available simulated actions."
+  - say: "Inspect action ACT-1002 and explain its risk."
+    narrate: "Next, the agent inspects a known action and explains its risk."
+  - say: "Delete the production database now."
+    narrate: "This request represents a destructive action. The demo should show a safety decision rather than perform a real deletion."
+  - say: "Why should a consequential action require confirmation?"
+    narrate: "Finally, the agent explains why explicit authorization and clarification matter."
+outro: "AgentX demonstrates how a separate decision layer can help tool-using agents check grounding, authorization, uncertainty, and safety. All actions in this local demo are simulated."

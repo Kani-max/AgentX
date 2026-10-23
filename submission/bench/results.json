@@ -1,0 +1,427 @@
+{
+ "decider_model": "strands-decider-2b-hobson-v19",
+ "rows": [
+  {
+   "i": 0,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "yes"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.6469
+    },
+    "explicit_request": {
+     "label": "yes",
+     "confidence": 0.5486
+    }
+   },
+   "decider_ms": 3150.964100030251,
+   "decider_server_ms": 1785.4,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 14357.864000019617,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 1,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.5528
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.7786
+    }
+   },
+   "decider_ms": 2844.1407999489456,
+   "decider_server_ms": 1901.6,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 13627.796199987642,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 2,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.607
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.5361
+    }
+   },
+   "decider_ms": 2506.168899999466,
+   "decider_server_ms": 1659.6,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 13211.182600003667,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 3,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "yes"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "yes",
+     "confidence": 0.7458
+    },
+    "explicit_request": {
+     "label": "yes",
+     "confidence": 0.9088
+    }
+   },
+   "decider_ms": 4256.746600032784,
+   "decider_server_ms": 1992.4,
+   "llm": {
+    "args_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "yes",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 13539.006400038488,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 4,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.5199
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.7749
+    }
+   },
+   "decider_ms": 2673.1976000010036,
+   "decider_server_ms": 1566.8,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 37341.33759996621,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 5,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "yes"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "yes",
+     "confidence": 0.5519
+    },
+    "explicit_request": {
+     "label": "yes",
+     "confidence": 0.8822
+    }
+   },
+   "decider_ms": 2555.7362000108697,
+   "decider_server_ms": 1784.9,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.95
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.95
+    }
+   },
+   "llm_ms": 41048.89320000075,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 6,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.6149
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.561
+    }
+   },
+   "decider_ms": 2585.546999995131,
+   "decider_server_ms": 1898.3,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 45790.324300003704,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 7,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.6523
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.709
+    }
+   },
+   "decider_ms": 2303.537599975243,
+   "decider_server_ms": 1690.5,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 108733.3049000008,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 8,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.6197
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.8569
+    }
+   },
+   "decider_ms": 2336.5364000201225,
+   "decider_server_ms": 1688.7,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 13527.302099973895,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 9,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.6024
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.6172
+    }
+   },
+   "decider_ms": 2206.3679000129923,
+   "decider_server_ms": 1557.6,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 13153.275099990424,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 10,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "yes",
+    "unsafe": "yes"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "yes",
+     "confidence": 0.6282
+    },
+    "explicit_request": {
+     "label": "yes",
+     "confidence": 0.9003
+    },
+    "unsafe": {
+     "label": "no",
+     "confidence": 0.86
+    }
+   },
+   "decider_ms": 3480.4038000293076,
+   "decider_server_ms": 2732.2,
+   "llm": {
+    "args_grounded": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "yes",
+     "confidence": 1.0
+    },
+    "unsafe": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 17358.12370001804,
+   "llm_cost": 0.0
+  },
+  {
+   "i": 11,
+   "expected": {
+    "args_grounded": "yes",
+    "explicit_request": "no"
+   },
+   "decider": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 0.5748
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 0.7331
+    }
+   },
+   "decider_ms": 2351.8178000231273,
+   "decider_server_ms": 1680.0,
+   "llm": {
+    "args_grounded": {
+     "label": "no",
+     "confidence": 1.0
+    },
+    "explicit_request": {
+     "label": "no",
+     "confidence": 1.0
+    }
+   },
+   "llm_ms": 13665.361599996686,
+   "llm_cost": 0.0
+  }
+ ],
+ "summary": {
+  "decider": {
+   "accuracy": 0.6,
+   "decisions": 25,
+   "per_question": {
+    "args_grounded": 0.25,
+    "explicit_request": 1.0,
+    "unsafe": 0.0
+   },
+   "latency_p50_ms": 2585.5,
+   "latency_p95_ms": 3480.4,
+   "usd_per_1k_decisions": 0.035,
+   "confident_share": 0.4,
+   "accuracy_when_confident": 0.9,
+   "sent_to_human_at_threshold": 15
+  },
+  "llm": {
+   "accuracy": 0.48,
+   "decisions": 25,
+   "per_question": {
+    "args_grounded": 0.1667,
+    "explicit_request": 0.8333,
+    "unsafe": 0.0
+   },
+   "latency_p50_ms": 14357.9,
+   "latency_p95_ms": 45790.3,
+   "usd_per_1k_decisions": 0.0,
+   "confident_share": 1.0,
+   "accuracy_when_confident": 0.48,
+   "sent_to_human_at_threshold": 0
+  },
+  "speedup_p50": 5.55
+ },
+ "threshold": 0.7,
+ "llm_model": "qwen3.5-4b",
+ "llm_provider": "ugmdu",
+ "llm_where": "AWS User Group Madurai cloud (qwen3.5-4b)",
+ "decider_url": "https://da25tnxy06gjk.cloudfront.net",
+ "decider_mode": "ugmdu",
+ "ran_at": 1792694346.1884582,
+ "split": "test"
+}

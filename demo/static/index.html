@@ -1,0 +1,348 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AgentX | Safety Dashboard</title>
+<style>
+:root{
+  --bg:#090e1b;--panel:#111a2b;--panel2:#0c1424;--line:#24324b;
+  --text:#edf3ff;--muted:#8999b5;--orange:#ff9900;
+  --green:#36d399;--red:#fb7185;--amber:#fbbf24;--blue:#60a5fa;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px Inter,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:220px minmax(0,1fr)}
+aside{background:#0c1322;border-right:1px solid var(--line);padding:22px 14px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;padding:5px 8px 28px}
+.logo{display:grid;place-items:center;background:var(--orange);color:#101522;width:34px;height:34px;border-radius:10px;font-weight:900}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:2px;margin-top:3px}
+.navlabel{color:#61718e;font-size:10px;font-weight:800;letter-spacing:1.5px;padding:12px 10px}
+.nav{display:flex;gap:11px;align-items:center;width:100%;text-align:left;color:var(--muted);background:transparent;border:0;padding:12px 10px;border-radius:9px;margin:3px 0}
+.nav.active,.nav:hover{background:#1a263b;color:white}
+.nav.active{box-shadow:inset 3px 0 var(--orange)}
+.side-note{margin:35px 5px 0;padding:12px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:12px;line-height:1.6}
+main{padding:26px;min-width:0;max-width:1600px;width:100%;margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:25px}
+.eyebrow{color:var(--orange);font-size:10px;letter-spacing:2px;font-weight:800}
+h1{font-size:27px;margin:7px 0}
+.subtitle{color:var(--muted);font-size:13px}
+.status{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:30px;padding:9px 13px;color:var(--muted);font-size:12px}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--green)}
+.grid{display:grid;gap:15px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:13px}
+.stat{padding:17px}
+.stat-label{font-size:11px;color:var(--muted)}
+.stat-value{font-size:29px;font-weight:800;margin:12px 0 6px}
+.stat-foot{font-size:11px;color:var(--muted)}
+.accent{color:var(--orange)}.green{color:var(--green)}.red{color:var(--red)}.amber{color:var(--amber)}
+.main-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:stretch}
+.panel{padding:18px;min-width:0;margin-bottom:16px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px}
+h2{font-size:14px;margin:0}
+.panel-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.5}
+.pill{font-size:10px;letter-spacing:.5px;padding:5px 8px;border:1px solid var(--line);border-radius:30px;color:var(--muted);white-space:nowrap}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.field{background:var(--panel2);border:1px solid var(--line);padding:12px;border-radius:9px;min-width:0}
+.field-label{font-size:11px;color:var(--muted);margin-bottom:9px}
+.field-value{font-size:13px;font-weight:700;overflow-wrap:anywhere}
+.divider{height:1px;background:var(--line);margin:15px 0}
+.note{color:var(--muted);font-size:12px;line-height:1.6}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.btn{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#1a263b;color:var(--text)}
+.btn.primary{background:var(--orange);border-color:var(--orange);color:#141414;font-weight:800}
+.btn:disabled{opacity:.55;cursor:wait}
+.chat{display:flex;flex-direction:column;min-height:430px}
+#log{flex:1;min-height:230px;max-height:410px;overflow:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:94%;padding:11px 13px;border-radius:11px;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+.user{align-self:flex-end;background:#233653}
+.bot{align-self:flex-start;background:#0b1424;border:1px solid var(--line)}
+.msg img{display:block;max-width:180px;max-height:140px;object-fit:contain;margin-bottom:8px;border-radius:7px}
+.msg-meta{color:var(--muted);font-size:11px;margin-top:7px}
+form{display:flex;gap:8px;margin-top:12px}
+input[type=text]{min-width:0;flex:1;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:12px;outline:none}
+input:focus{border-color:var(--blue)}
+.clip{display:grid;place-items:center;width:42px;border:1px solid var(--line);border-radius:9px;cursor:pointer;color:var(--muted)}
+#attachments{font-size:11px;color:var(--muted);margin-top:7px;overflow-wrap:anywhere}
+#decisions{display:flex;flex-direction:column;gap:10px;max-height:510px;overflow:auto}
+.decision{border:1px solid var(--line);border-radius:10px;padding:13px;background:var(--panel2)}
+.decision-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+.decision-title{font-size:12px;font-weight:700;overflow-wrap:anywhere}
+.badge{border:1px solid var(--line);border-radius:30px;padding:5px 8px;font-size:10px;font-weight:800;white-space:nowrap}
+.badge.proceed{color:var(--green);border-color:#286c56}
+.badge.ask_first{color:var(--amber);border-color:#72591c}
+.badge.deny{color:var(--red);border-color:#783243}
+.metric{display:grid;grid-template-columns:125px minmax(40px,1fr) 42px;gap:8px;align-items:center;margin:9px 0;font-size:11px}
+.track{height:7px;background:#253149;border-radius:20px;overflow:hidden}
+.track span{display:block;height:100%;border-radius:20px}
+.reason{font-size:11px;color:var(--muted);margin-top:10px;overflow-wrap:anywhere;line-height:1.5}
+.table-wrap{overflow:auto}
+table{border-collapse:collapse;width:100%;font-size:12px;min-width:500px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-size:10px;letter-spacing:.7px}
+td{overflow-wrap:anywhere}
+.empty{color:var(--muted);font-size:12px;padding:22px 8px;text-align:center;line-height:1.7}
+.view{display:none}.view.active{display:block}
+footer{color:#64738e;font-size:11px;text-align:center;padding:15px 0}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.main-grid{grid-template-columns:1fr}}
+@media(max-width:650px){
+ .app{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid var(--line);padding:10px}
+ .brand{padding:5px 8px 10px}.navlabel,.side-note{display:none}
+ .navs{display:flex;overflow:auto;gap:4px}.nav{white-space:nowrap;width:auto;padding:9px;font-size:12px}
+ main{padding:16px}.top{align-items:flex-start;flex-direction:column}h1{font-size:23px}
+ .stats{gap:9px}.stat{padding:12px}.stat-value{font-size:24px}
+ .fields{grid-template-columns:1fr 1fr}.metric{grid-template-columns:100px minmax(30px,1fr) 35px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="brand"><span class="logo">A</span><span>AgentX<small>SAFETY CONSOLE</small></span></div>
+  <div class="navlabel">WORKSPACE</div>
+  <nav class="navs">
+    <button class="nav active" data-view="overview">◈ Overview</button>
+    <button class="nav" data-view="analyzer">⌁ Risk Analyzer</button>
+    <button class="nav" data-view="history">≡ Decision History</button>
+    <button class="nav" data-view="chatview">✳ Agent Chat</button>
+  </nav>
+  <div class="side-note"><b>Safety layer active</b><br>Proposed consequential tool calls are evaluated before proceeding. Demo tools use simulated in-memory data only.</div>
+</aside>
+
+<main>
+  <div class="top">
+    <div><div class="eyebrow">STRANDS DECIDER · AGENT GUARDRAILS</div><h1 id="agentName">AgentX Safety Dashboard</h1><div class="subtitle" id="subtitle">Connecting to your real agent…</div></div>
+    <div class="status"><span class="pulse"></span><span id="connection">Connecting</span></div>
+  </div>
+
+  <section class="grid stats">
+    <div class="stat"><div class="stat-label">DECISIONS THIS SESSION</div><div class="stat-value" id="total">0</div><div class="stat-foot">Received from actual agent responses</div></div>
+    <div class="stat"><div class="stat-label">PROCEED</div><div class="stat-value green" id="proceeds">0</div><div class="stat-foot">Safety checks passed</div></div>
+    <div class="stat"><div class="stat-label">ASK FIRST</div><div class="stat-value amber" id="asks">0</div><div class="stat-foot">Needs clarification or confirmation</div></div>
+    <div class="stat"><div class="stat-label">DENIED</div><div class="stat-value red" id="denied">0</div><div class="stat-foot">Guard blocked the proposed call</div></div>
+  </section>
+
+  <section class="view active" id="overview">
+    <div class="grid main-grid">
+      <div>
+        <section class="panel">
+          <div class="panel-head"><div><h2>Safety decision monitor</h2><div class="panel-desc">Live decisions from OrderActionGuard</div></div><span class="pill">LIVE SESSION</span></div>
+          <div class="fields">
+            <div class="field"><div class="field-label">LAST VERDICT</div><div class="field-value" id="lastVerdict">Waiting for a tool call</div></div>
+            <div class="field"><div class="field-label">LAST TOOL</div><div class="field-value" id="lastTool">—</div></div>
+            <div class="field"><div class="field-label">DECIDER TIME</div><div class="field-value" id="lastTime">—</div></div>
+            <div class="field"><div class="field-label">CURRENT MODEL</div><div class="field-value" id="model">Loading…</div></div>
+          </div>
+          <div class="note">Only actual decision records returned by the API are shown. No sample verdicts are fabricated.</div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><h2>Latest safety evaluations</h2><div class="panel-desc">Probability values returned by your real Decider</div></div><button class="btn" id="toHistory">View history</button></div>
+          <div id="decisions"><div class="empty">No decisions yet.<br>Ask AgentX to inspect a demo action to begin.</div></div>
+        </section>
+      </div>
+      <div>
+        <section class="panel">
+          <div class="panel-head"><div><h2>Risk analyzer</h2><div class="panel-desc">Inspect a demo action through your actual agent</div></div><span class="pill">SIMULATED DATA</span></div>
+          <label class="field-label" for="action">Choose an action ID</label>
+          <div class="action-row" style="margin-top:8px">
+            <button class="btn" data-prompt="Inspect action ACT-1001 and explain its risk.">ACT-1001</button>
+            <button class="btn" data-prompt="Inspect action ACT-1002 and explain its risk.">ACT-1002</button>
+            <button class="btn" data-prompt="Inspect action ACT-1003 and explain its risk.">ACT-1003</button>
+          </div>
+          <div class="divider"></div>
+          <div class="note">These buttons send requests to AgentX. The agent decides how to respond; the UI does not invent risk scores or pretend a decision occurred.</div>
+        </section>
+        <section class="panel">
+          <div class="panel-head"><div><h2>Decision policy</h2><div class="panel-desc">Checks applied to consequential tool calls</div></div></div>
+          <div class="field"><div class="field-label">ARGUMENTS GROUNDED</div><div class="field-value">Are proposed arguments supported by conversation or verified results?</div></div>
+          <div class="field" style="margin-top:9px"><div class="field-label">EXPLICIT REQUEST</div><div class="field-value">Did the user explicitly request this operation?</div></div>
+          <div class="field" style="margin-top:9px"><div class="field-label">PREMATURE ACTION</div><div class="field-value">Would the call skip clarification, authorization, or confirmation?</div></div>
+          <div class="field" style="margin-top:9px"><div class="field-label">UNSAFE OR UNAUTHORIZED</div><div class="field-value">Would this proposed tool call violate a safety rule?</div></div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" id="analyzer">
+    <section class="panel">
+      <div class="panel-head"><div><h2>Risk analyzer</h2><div class="panel-desc">Send an action-inspection request to your actual AgentX agent.</div></div><span class="pill">REAL API</span></div>
+      <div class="action-row">
+        <button class="btn" data-prompt="Inspect action ACT-1001 and explain its risk.">Inspect ACT-1001</button>
+        <button class="btn" data-prompt="Inspect action ACT-1002 and explain its risk.">Inspect ACT-1002</button>
+        <button class="btn" data-prompt="Inspect action ACT-1003 and explain its risk.">Inspect ACT-1003</button>
+      </div>
+      <div class="divider"></div><div id="analysisResult" class="note">Choose an action to send a request to AgentX. Results appear only when returned by the agent.</div>
+    </section>
+  </section>
+
+  <section class="view" id="history">
+    <section class="panel">
+      <div class="panel-head"><div><h2>Decision history</h2><div class="panel-desc">Actual records received during this page session</div></div><button class="btn" id="clearHistory">Clear view</button></div>
+      <div class="table-wrap"><table><thead><tr><th>TIME</th><th>TOOL</th><th>VERDICT</th><th>REASON</th><th>DECIDER MS</th></tr></thead><tbody id="historyRows"><tr><td colspan="5" class="empty">No decisions recorded yet.</td></tr></tbody></table></div>
+      <div class="note" style="margin-top:12px">This is browser-session history, not a permanent database. Clearing this view does not delete or alter backend records.</div>
+    </section>
+  </section>
+
+  <section class="view" id="chatview">
+    <section class="panel chat">
+      <div class="panel-head"><div><h2>Talk to AgentX</h2><div class="panel-desc">Messages go to the existing /api/chat endpoint.</div></div><button class="btn" id="resetChat">Reset backend session</button></div>
+      <div id="log"><div class="msg bot">Hello! I'm AgentX. Ask me to inspect one of the available demo actions or explain a safety decision.</div></div>
+      <div id="attachments"></div>
+      <form id="chatForm">
+        <label class="clip" title="Attach image">＋<input id="imageInput" type="file" accept="image/*" multiple hidden></label>
+        <input type="text" id="message" placeholder="Ask AgentX about a demo action…" autocomplete="off">
+        <button class="btn primary" id="sendBtn">Send</button>
+      </form>
+    </section>
+  </section>
+  <footer>AgentX · Strands interventions · Simulated demo tools · Statistics reflect records received in this browser session</footer>
+</main>
+</div>
+
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+const state = {records:[],pendingImages:[],turns:0};
+const sessionId = "agentx-" + Math.random().toString(36).slice(2,10);
+
+function switchView(id){
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
+  document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
+}
+document.querySelectorAll(".nav").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
+$("toHistory").addEventListener("click",()=>switchView("history"));
+
+async function loadInfo(){
+  try{
+    const r=await fetch("/api/info");
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    const i=await r.json();
+    $("agentName").textContent=i.agent||"AgentX";
+    $("subtitle").textContent=`LLM: ${i.llm||"configured"} · Decider: ${i.decider||"configured"} · ${i.target==="agentcore"?"Amazon Bedrock AgentCore Runtime":"local agent"}`;
+    $("model").textContent=i.bedrock_model||i.llm||"Configured";
+    $("connection").textContent="API connected";
+  }catch(e){
+    $("connection").textContent="API unavailable";
+    $("subtitle").textContent="Start the AgentX demo server, then refresh this page.";
+  }
+}
+
+function verdictClass(v){
+  const s=String(v||"").toLowerCase();
+  if(s==="proceed") return "proceed";
+  if(s==="deny"||s==="block") return "deny";
+  return "ask_first";
+}
+function addDecision(rec){
+  if(!rec||typeof rec!=="object") return;
+  state.records.unshift({...rec,receivedAt:new Date().toISOString()});
+  updateStats();renderDecisions();renderHistory();
+}
+function updateStats(){
+  const records=state.records;
+  $("total").textContent=records.length;
+  $("proceeds").textContent=records.filter(r=>r.verdict==="proceed").length;
+  $("asks").textContent=records.filter(r=>r.verdict==="ask_first"||r.verdict==="guide"||r.verdict==="review").length;
+  $("denied").textContent=records.filter(r=>r.verdict==="deny"||r.verdict==="block").length;
+  const last=records[0];
+  $("lastVerdict").textContent=last?(last.verdict||"Recorded").toUpperCase():"Waiting for a tool call";
+  $("lastTool").textContent=last?.tool||"—";
+  $("lastTime").textContent=last&&Number.isFinite(last.decider_ms)?last.decider_ms+" ms":"—";
+}
+function renderDecisions(){
+  const box=$("decisions");
+  if(!state.records.length){box.innerHTML='<div class="empty">No decisions yet.<br>Ask AgentX to inspect a demo action to begin.</div>';return;}
+  box.innerHTML=state.records.slice(0,8).map(rec=>{
+    const probs=["args_grounded","explicit_request","premature","unsafe"]
+      .filter(k=>typeof rec[k]==="number")
+      .map(k=>{
+        const value=Math.max(0,Math.min(1,rec[k]));
+        const color=k==="unsafe"?(value>=.5?"var(--red)":"var(--green)"):(value>=.5?"var(--green)":"var(--amber)");
+        return `<div class="metric"><span>${esc(k.replaceAll("_"," "))}</span><span class="track"><span style="width:${value*100}%;background:${color}"></span></span><span>${(value*100).toFixed(1)}%</span></div>`;
+      }).join("");
+    return `<article class="decision"><div class="decision-top"><span class="decision-title">${esc(rec.tool||rec.stage||"Decision")}</span><span class="badge ${verdictClass(rec.verdict)}">${esc((rec.verdict||"recorded").toUpperCase())}</span></div>${probs||'<div class="note">No probability fields in this record.</div>'}<div class="reason">Reason: ${esc(rec.reason||"Not supplied")} · Decider: ${Number.isFinite(rec.decider_ms)?rec.decider_ms+" ms":"not supplied"}</div></article>`;
+  }).join("");
+}
+function renderHistory(){
+  const body=$("historyRows");
+  if(!state.records.length){body.innerHTML='<tr><td colspan="5" class="empty">No decisions recorded yet.</td></tr>';return;}
+  body.innerHTML=state.records.map(rec=>`<tr>
+    <td>${esc(new Date(rec.receivedAt).toLocaleTimeString())}</td>
+    <td>${esc(rec.tool||rec.stage||"—")}</td>
+    <td><span class="badge ${verdictClass(rec.verdict)}">${esc((rec.verdict||"recorded").toUpperCase())}</span></td>
+    <td>${esc(rec.reason||"—")}</td><td>${Number.isFinite(rec.decider_ms)?esc(rec.decider_ms):"—"}</td>
+  </tr>`).join("");
+}
+function addMessage(cls,html){
+  const el=document.createElement("div");el.className="msg "+cls;el.innerHTML=html;
+  $("log").appendChild(el);$("log").scrollTop=$("log").scrollHeight;return el;
+}
+async function sendMessage(message,images=[]){
+  const text=message.trim();
+  if(!text&&!images.length)return;
+  switchView("chatview");
+  const preview=images.map(u=>`<img src="${u}" alt="Attached image">`).join("");
+  addMessage("user",preview+esc(text||"(image attached)"));
+  const wait=addMessage("bot","Thinking…");
+  $("sendBtn").disabled=true;
+  try{
+    const r=await fetch("/api/chat",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({message:text||"(image)",images,session_id:sessionId})
+    });
+    const out=await r.json();
+    if(!r.ok||out.error){wait.textContent=out.error||("Request failed: HTTP "+r.status);return;}
+    const records=Array.isArray(out.decisions)?out.decisions:[];
+    records.forEach(addDecision);
+    wait.textContent=out.reply||"(No text response)";
+    const meta=document.createElement("div");meta.className="msg-meta";
+    meta.textContent=`${out.latency_ms??"—"} ms · ${records.length} decision${records.length===1?"":"s"}${out.served_by?" · "+out.served_by:""}`;
+    wait.appendChild(meta);
+    state.turns++;
+    if($("analysisResult"))$("analysisResult").textContent=`Latest request returned ${records.length} decision record(s). See the decision monitor or history for the actual values.`;
+  }catch(e){wait.textContent="Request error: "+e.message;}
+  finally{$("sendBtn").disabled=false;}
+}
+$("chatForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const message=$("message").value;const images=state.pendingImages.slice();
+  $("message").value="";state.pendingImages=[];$("attachments").textContent="";
+  await sendMessage(message,images);
+});
+$("imageInput").addEventListener("change",async e=>{
+  for(const file of e.target.files){
+    if(!file.type.startsWith("image/"))continue;
+    const data=await new Promise((resolve,reject)=>{
+      const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file);
+    });
+    state.pendingImages.push(data);
+  }
+  $("attachments").textContent=state.pendingImages.length?`${state.pendingImages.length} image(s) ready to send`:"";
+  e.target.value="";
+});
+document.querySelectorAll("[data-prompt]").forEach(button=>button.addEventListener("click",()=>{
+  $("analysisResult").textContent="Waiting for AgentX response…";
+  sendMessage(button.dataset.prompt);
+}));
+$("clearHistory").addEventListener("click",()=>{
+  state.records=[];updateStats();renderDecisions();renderHistory();
+});
+$("resetChat").addEventListener("click",async()=>{
+  if(!confirm("Reset the backend agent instance? This does not delete project files."))return;
+  try{
+    const r=await fetch("/api/reset",{method:"POST"});
+    if(!r.ok)throw new Error("HTTP "+r.status);
+    $("log").innerHTML='<div class="msg bot">Agent instance reset. Send a new message to continue.</div>';
+  }catch(e){addMessage("bot","Reset failed: "+e.message);}
+});
+loadInfo();
+</script>
+</body>
+</html>
